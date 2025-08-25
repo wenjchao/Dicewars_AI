@@ -1,0 +1,50 @@
+[project]
+name = "dicewars-ai"
+version = "0.0.0"
+description = "Deterministic Dice Wars engine (v4+v5 API)"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.26",
+    "xxhash>=3.4", 
+    "pydantic>=2",
+    "jsonschema>=4"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "hypothesis>=6.0",
+    "ruff>=0.6",
+    "mypy>=1.0",
+    "pytest-cov>=4.0",
+    "types-xxhash>=3.0"
+]
+
+[project.scripts]
+dicewars-cli = "dicewars.ui.cli.app:main"
+dicewars-gui = "dicewars.ui.gui.app:main"
+dicewars-preview-map = "dicewars.scripts.preview_map:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dicewars"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP"]
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+addopts = "-v --tb=short"
+testpaths = ["tests"]
