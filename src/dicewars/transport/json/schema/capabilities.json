@@ -1,1 +1,29 @@
-{}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Capabilities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "rules_version", "schema_version", "map_name", "num_players",
+    "num_territories", "layout_hash", "action_index_hash",
+    "winner_policy", "winner_tiebreak_chain", "max_turns",
+    "max_dice_per_territory", "supports_delta", "supports_penalties",
+    "uint64_encoding"
+  ],
+  "properties": {
+    "rules_version": {"type": "string"},
+    "schema_version": {"type": "string"},
+    "map_name": {"type": "string"},
+    "num_players": {"type": "integer", "minimum": 2},
+    "num_territories": {"type": "integer", "minimum": 2},
+    "layout_hash": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+    "action_index_hash": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+    "winner_policy": {"type": "string"},
+    "winner_tiebreak_chain": {"type": "array", "items": {"type": "string"}},
+    "max_turns": {"type": "integer", "minimum": 1},
+    "max_dice_per_territory": {"type": "integer", "minimum": 1},
+    "supports_delta": {"type": "boolean"},
+    "supports_penalties": {"type": "boolean"},
+    "uint64_encoding": {"type": "string", "enum": ["decimal"]}
+  }
+}

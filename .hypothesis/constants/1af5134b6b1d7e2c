@@ -1,0 +1,4 @@
+# file: /Users/wenj/Courses/Dicewars_AI/src/dicewars/api/types.py
+# hypothesis_version: 6.138.3
+
+[1000, 30000, 'GameState', 'Grid height mismatch', 'Grid width mismatch', 'allow_early_end', 'attack', 'auto_end_turn', 'bad_payload', 'bad_phase', 'battlefront', 'decimal', 'distribute_supply', 'end_turn', 'exceeds_max_dice', 'fixed_amount', 'forfeit_game', 'game_over', 'illegal_end_turn', 'insufficient_dice', 'invalid_placement', 'invalid_territory', 'largest_connected', 'lexicographic', 'manual', 'most_territories', 'most_total_dice', 'must_distribute_all', 'none', 'not_adjacent', 'not_owned', 'not_your_turn', 'penalty', 'player_id', 'random', 'schema_mismatch', 'setup', 'skip_next_turn', 'strongest_first', 'supply', 'supply_exhausted', 'territories', 'total_dice', 'total_territories', 'uniform', 'unknown_action_type', 'unknown_enum', 'weakest_first', 'zero_placement']

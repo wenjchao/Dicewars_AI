@@ -1,0 +1,4 @@
+# file: /Users/wenj/Courses/Dicewars_AI/src/dicewars/core/actions.py
+# hypothesis_version: 6.138.3
+
+['attacker', 'auto_end_turn', 'defender', 'eliminate', 'penalty_reason', 'penalty_type', 'skip_next_turn']

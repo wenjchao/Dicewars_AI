@@ -1,1 +1,84 @@
-{}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TurnContext",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["game_state", "valid_actions"],
+  "properties": {
+    "game_state": {"$ref": "#/definitions/GameState"},
+    "valid_actions": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/Action"}
+    },
+    "supply": {"$ref": "#/definitions/SupplyDescriptor"},
+    "time_remaining_ms": {"type": "integer", "minimum": 0}
+  },
+  "definitions": {
+    "GameState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owners", "dice", "active_player_id", "phase", "turn_number", "tick_id"],
+      "properties": {
+        "owners": {"type": "array", "items": {"type": "integer"}},
+        "dice": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+        "active_player_id": {"type": "integer", "minimum": 0},
+        "phase": {"type": "string", "enum": ["setup", "attack", "supply", "game_over"]},
+        "turn_number": {"type": "integer", "minimum": 0},
+        "tick_id": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+        "winner_id": {"type": ["integer", "null"]},
+        "eliminated_players": {"type": "array", "items": {"type": "integer"}}
+      }
+    },
+    "Action": {
+      "oneOf": [
+        {"$ref": "#/definitions/AttackAction"},
+        {"$ref": "#/definitions/EndTurnAction"},
+        {"$ref": "#/definitions/DistributeSupplyAction"}
+      ]
+    },
+    "AttackAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "attacker_territory_id", "defender_territory_id", "attack_index"],
+      "properties": {
+        "type": {"type": "string", "const": "attack"},
+        "attacker_territory_id": {"type": "integer", "minimum": 0},
+        "defender_territory_id": {"type": "integer", "minimum": 0},
+        "attack_index": {"type": "integer", "minimum": 0}
+      }
+    },
+    "EndTurnAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": {"type": "string", "const": "end_turn"}
+      }
+    },
+    "DistributeSupplyAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "placements"],
+      "properties": {
+        "type": {"type": "string", "const": "distribute_supply"},
+        "placements": {
+          "type": "object",
+          "propertyNames": {"pattern": "^[0-9]+$"},
+          "additionalProperties": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "SupplyDescriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["player_id", "supply_remaining", "can_end_early", "territories_owned", "max_dice_per_territory"],
+      "properties": {
+        "player_id": {"type": "integer", "minimum": 0},
+        "supply_remaining": {"type": "integer", "minimum": 0},
+        "can_end_early": {"type": "boolean"},
+        "territories_owned": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+        "max_dice_per_territory": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

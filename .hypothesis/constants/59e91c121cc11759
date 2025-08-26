@@ -1,0 +1,4 @@
+# file: /Users/wenj/Courses/Dicewars_AI/src/dicewars/core/state.py
+# hypothesis_version: 6.138.3
+
+['1.0', '5.0', 'battle', 'setup', 'turn']

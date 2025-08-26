@@ -1,0 +1,4 @@
+# file: /Users/wenj/Courses/Dicewars_AI/src/dicewars/api/__init__.py
+# hypothesis_version: 6.138.3
+
+['ActionResult', 'AttackAction', 'BattleResult', 'BattleSystem', 'BorderSegment', 'Capabilities', 'EndTurnAction', 'GameConfig', 'GameCoordinator', 'GameEngine', 'GameObserver', 'GamePhase', 'GameState', 'InvalidAction', 'MapLayout', 'PenaltyAction', 'PlayerClient', 'Position', 'StateDelta', 'SupplyDescriptor', 'SupplyPolicy', 'TerritoryLayout', 'TiebreakToken', 'TimeoutPolicy', 'TurnContext', 'WinnerPolicy']

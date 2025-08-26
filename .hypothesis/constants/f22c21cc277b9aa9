@@ -1,0 +1,4 @@
+# file: /Users/wenj/Courses/Dicewars_AI/src/dicewars/api/coordinator.py
+# hypothesis_version: 6.138.3
+
+[1000.0, 'auto_end_turn', 'eliminate', 'eliminated', 'invalid_action', 'skip_next_turn', 'timeout']

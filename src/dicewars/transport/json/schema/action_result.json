@@ -1,1 +1,59 @@
-{}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ActionResult",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["success", "tick_id", "state_hash", "position_hash", "new_game_state"],
+  "properties": {
+    "success": {"type": "boolean"},
+    "tick_id": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+    "state_hash": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+    "position_hash": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+    "new_game_state": {"$ref": "#/definitions/GameState"},
+    "battle_result": {"anyOf": [{"$ref": "#/definitions/BattleResult"}, {"type": "null"}]},
+    "error_code": {"type": ["string", "null"]},
+    "error_data": {"type": ["object", "null"]},
+    "delta": {"anyOf": [{"$ref": "#/definitions/StateDelta"}, {"type": "null"}]}
+  },
+  "definitions": {
+    "GameState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owners", "dice", "active_player_id", "phase", "turn_number", "tick_id"],
+      "properties": {
+        "owners": {"type": "array", "items": {"type": "integer"}},
+        "dice": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+        "active_player_id": {"type": "integer", "minimum": 0},
+        "phase": {"type": "string", "enum": ["setup", "attack", "supply", "game_over"]},
+        "turn_number": {"type": "integer", "minimum": 0},
+        "tick_id": {"type": "string", "pattern": "^[0-9]+$", "format": "uint64"},
+        "winner_id": {"type": ["integer", "null"]},
+        "eliminated_players": {"type": "array", "items": {"type": "integer"}}
+      }
+    },
+    "BattleResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["attacker_casualties", "defender_casualties", "attacker_rolls", "defender_rolls", "attack_pair_index", "territory_conquered", "winner"],
+      "properties": {
+        "attacker_casualties": {"type": "integer", "minimum": 0},
+        "defender_casualties": {"type": "integer", "minimum": 0},
+        "attacker_rolls": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 6}},
+        "defender_rolls": {"type": "array", "items": {"type": "integer", "minimum": 1, "maximum": 6}},
+        "attack_pair_index": {"type": "integer", "minimum": 0},
+        "territory_conquered": {"type": "boolean"},
+        "winner": {"type": "string", "enum": ["attacker", "defender"]}
+      }
+    },
+    "StateDelta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["changed_territories", "new_owners", "new_dice"],
+      "properties": {
+        "changed_territories": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+        "new_owners": {"type": "array", "items": {"type": "integer"}},
+        "new_dice": {"type": "array", "items": {"type": "integer", "minimum": 0}}
+      }
+    }
+  }
+}
